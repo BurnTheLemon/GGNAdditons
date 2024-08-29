@@ -1,0 +1,48 @@
+name: GGNAdditons
+version: '2.2'
+main: de.burnthelemon.ggnadditons.Main
+api-version: '1.21'
+depend: [LuckPerms, DiscordSRV]
+loadbefore: [Essentials]
+commands:
+  test:
+    description: "Test"
+  roll:
+    description: "A"
+    aliases:
+      - dice
+      - d
+  renameitem:
+      description: "A"
+      aliases:
+        - rn
+  modifyitem:
+      description: ""
+      aliases:
+        - mi
+  name:
+      description: "moo"
+      aliases:
+        - nnick
+        - nick
+  admin:
+      description: "Admin command"
+  ressourcepack:
+      description: "A"
+      aliases:
+        - rp
+        - resourcepack
+  ressourcepackmanager:
+      description: "B"
+      aliases:
+        - rpm
+  msg:
+      description: ""
+      aliases:
+        - message
+        - w
+        - tell
+  badge:
+      description: ""
+      aliases:
+        - bd
