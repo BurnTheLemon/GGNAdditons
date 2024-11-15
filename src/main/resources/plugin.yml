@@ -1,5 +1,5 @@
 name: GGNAdditons
-version: '2.2'
+version: '2.5'
 main: de.burnthelemon.ggnadditons.Main
 api-version: '1.21'
 depend: [LuckPerms, DiscordSRV]
@@ -42,7 +42,12 @@ commands:
         - message
         - w
         - tell
+        - whisper
   badge:
       description: ""
       aliases:
         - bd
+  ping:
+      description: ""
+  sound:
+    description: ""

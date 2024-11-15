@@ -41,6 +41,7 @@ public class Rename implements CommandExecutor {
             if (targetPlayer != null) {
                 String targetUUID = targetPlayer.getUniqueId().toString();
                 databaseManager.deletePlayerName(targetUUID); // Delete the name from the database
+                targetPlayer.displayName(targetPlayer.name());
                 targetPlayer.sendMessage("Your custom username has been deleted.");
                 sender.sendMessage("Deleted custom username for " + targetUsername);
             } else {

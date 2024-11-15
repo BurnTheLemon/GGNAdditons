@@ -1,5 +1,6 @@
 package de.burnthelemon.ggnadditons.commands;
 
+import de.burnthelemon.ggnadditons.util.CustomFormattingTags;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
@@ -73,7 +74,7 @@ public class ModifyItem implements CommandExecutor {
         }
         String name = nameBuilder.toString().trim();
         String nonItalicName = "<italic:false>" + name + "</italic:false>";
-        Component displayName = MiniMessage.miniMessage().deserialize(nonItalicName);
+        Component displayName = MiniMessage.miniMessage().deserialize(nonItalicName, CustomFormattingTags.getCustomTags());
         meta.displayName(displayName);
         item.setItemMeta(meta);
         player.sendMessage("Item name modified.");

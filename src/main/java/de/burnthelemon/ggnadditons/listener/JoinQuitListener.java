@@ -3,6 +3,7 @@ package de.burnthelemon.ggnadditons.listener;
 import de.burnthelemon.ggnadditons.Main;
 import de.burnthelemon.ggnadditons.commands.ResourcePackCommand;
 import de.burnthelemon.ggnadditons.util.DatabaseManager;
+import de.burnthelemon.ggnadditons.util.DiscordManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -16,27 +17,20 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.awt.*;
 import java.util.*;
 import java.util.logging.Level;
 
-import static org.apache.logging.log4j.LogManager.getLogger;
-import static org.bukkit.Bukkit.getOnlinePlayers;
-import static org.bukkit.Bukkit.getServer;
-
 public class JoinQuitListener implements Listener {
     private final DatabaseManager databaseManager;
-    private Set<String> onlinePlayers = new HashSet<>();
     private final ResourcePackCommand resourcePackCommand = new ResourcePackCommand();
 
     private final Map<UUID, Long> cooldowns = new HashMap<>();
     private static final long COOLDOWN_TIME = 30 * 1000L; // 2 minutes in milliseconds
-
+    DiscordManager discordManager = DiscordManager.getInstance();
 
     public JoinQuitListener() {
         this.databaseManager = new DatabaseManager(); // Instantiate DatabaseManager here
-        Bukkit.getOnlinePlayers().forEach(p -> onlinePlayers.add("@"+MiniMessage.miniMessage().serialize(p.name())));
-        Bukkit.getOnlinePlayers().forEach(this::refreshPlayerAutoComplete);
-
     }
 
     @EventHandler
@@ -45,12 +39,9 @@ public class JoinQuitListener implements Listener {
 
         String playerName = databaseManager.getPlayerName(e.getPlayer().getUniqueId().toString()) == null ? MiniMessage.miniMessage().serialize(e.getPlayer().displayName()) : databaseManager.getPlayerName(e.getPlayer().getUniqueId().toString());
         e.getPlayer().displayName(MiniMessage.miniMessage().deserialize(playerName));
-        onlinePlayers.add("@"+MiniMessage.miniMessage().serialize(e.getPlayer().name()));
 
 
         e.joinMessage(MiniMessage.miniMessage().deserialize("<gray>[<green>+</green>]<yellow> " + MiniMessage.miniMessage().serialize(e.getPlayer().displayName()) + "<reset><yellow> joined the game"));
-        Bukkit.getOnlinePlayers().forEach(this::refreshPlayerAutoComplete);
-
 
         Player player = e.getPlayer();
         UUID playerUUID = player.getUniqueId();
@@ -72,26 +63,34 @@ public class JoinQuitListener implements Listener {
                 @Override
                 public void run() {
                     Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(MiniMessage.miniMessage().deserialize(
-                            "<gray>[<blue>G</blue><red>G</red><green>N</green>] <reset><gray>Welcome back, "
+                            "<gray>[<gradient:green:yellow>Toucan</gradient>] <reset><gray>Welcome back, "
                                     + PlainTextComponentSerializer.plainText().serialize(player.displayName()))));
                 }
             }.runTaskLater(Main.getPlugin(), 2 * 20L); // 2 seconds delay
         }
+
+        discordManager.uniquePlayers.add(e.getPlayer().getUniqueId());
+        discordManager.updateDiscordStatus();
+
+
+        discordManager.sendDiscordFullEmbed(e.getPlayer(), "Player Joined", PlainTextComponentSerializer.plainText().serialize(e.getPlayer().name()) + " has joined the Server", Color.GREEN);
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         e.quitMessage(MiniMessage.miniMessage().deserialize("<gray>[<red>-</red>]<yellow> " + MiniMessage.miniMessage().serialize(e.getPlayer().displayName()) + "<reset><yellow> left the game"));
-        onlinePlayers.remove("@"+MiniMessage.miniMessage().serialize(e.getPlayer().name()));
-        Bukkit.getOnlinePlayers().forEach(this::refreshPlayerAutoComplete);
 
-
-
+        discordManager.sendDiscordFullEmbed(e.getPlayer(), "Player Left", PlainTextComponentSerializer.plainText().serialize(e.getPlayer().name()) + " has left the Server", Color.RED);
+        discordManager.updateDiscordStatus();
     }
 
-    public void refreshPlayerAutoComplete(Player player) {
-        player.removeCustomChatCompletions(onlinePlayers);
-        player.addCustomChatCompletions(onlinePlayers);
-        //player.sendMessage(Arrays.toString(onlinePlayers.toArray()));
+    @EventHandler
+    public void preJoinEvent(PlayerLoginEvent e) {
+        Main.getPlugin().getLogger().log(Level.INFO,e.getPlayer().getName() + " Tried to join the Server but the Server was not ready yet.");
+
+        if (!discordManager.isDiscordReady) {
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, MiniMessage.miniMessage().deserialize("<red><b>Failed to Connect\n</b><gray>The Server is not ready yet."));
+            discordManager.sendDiscordFullEmbed(e.getPlayer(), "Warning", e.getPlayer().getName() + " has tried to join but was denied\nThe Server was not ready yet. ", Color.RED);
+        }
     }
 }
