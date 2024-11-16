@@ -71,6 +71,7 @@ public final class Main extends JavaPlugin {
       getServer().getPluginManager().registerEvents(new Chat(),this);
       getServer().getPluginManager().registerEvents(new HUDCosmetics(),this);
       getServer().getPluginManager().registerEvents(new SizeStick(),this);
+      getServer().getPluginManager().registerEvents(new ShulkerBoxPackager(),this);
       discordManager.sendStartupMessage(); // Send Message Discord Integration is live.
 
    }
