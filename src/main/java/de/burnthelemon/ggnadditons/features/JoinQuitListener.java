@@ -1,14 +1,13 @@
-package de.burnthelemon.ggnadditons.listener;
+package de.burnthelemon.ggnadditons.features;
 
 import de.burnthelemon.ggnadditons.Main;
 import de.burnthelemon.ggnadditons.commands.ResourcePackCommand;
-import de.burnthelemon.ggnadditons.util.DatabaseManager;
-import de.burnthelemon.ggnadditons.util.DiscordManager;
-import net.kyori.adventure.text.Component;
+import de.burnthelemon.ggnadditons.hooks.database.DatabaseHandler;
+import de.burnthelemon.ggnadditons.hooks.discordBridge.DiscordManager;
+import de.burnthelemon.ggnadditons.hooks.database.PlayerDataManager;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +21,7 @@ import java.util.*;
 import java.util.logging.Level;
 
 public class JoinQuitListener implements Listener {
-    private final DatabaseManager databaseManager;
+    private final PlayerDataManager playerDataManager;
     private final ResourcePackCommand resourcePackCommand = new ResourcePackCommand();
 
     private final Map<UUID, Long> cooldowns = new HashMap<>();
@@ -30,14 +29,14 @@ public class JoinQuitListener implements Listener {
     DiscordManager discordManager = DiscordManager.getInstance();
 
     public JoinQuitListener() {
-        this.databaseManager = new DatabaseManager(); // Instantiate DatabaseManager here
+        this.playerDataManager = new PlayerDataManager(new DatabaseHandler()); // Instantiate DatabaseManager here
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         resourcePackCommand.applySubscribedResourcePacks(e.getPlayer());
 
-        String playerName = databaseManager.getPlayerName(e.getPlayer().getUniqueId().toString()) == null ? MiniMessage.miniMessage().serialize(e.getPlayer().displayName()) : databaseManager.getPlayerName(e.getPlayer().getUniqueId().toString());
+        String playerName = playerDataManager.getPlayerName(e.getPlayer().getUniqueId().toString()) == null ? MiniMessage.miniMessage().serialize(e.getPlayer().displayName()) : playerDataManager.getPlayerName(e.getPlayer().getUniqueId().toString());
         e.getPlayer().displayName(MiniMessage.miniMessage().deserialize(playerName));
 
 

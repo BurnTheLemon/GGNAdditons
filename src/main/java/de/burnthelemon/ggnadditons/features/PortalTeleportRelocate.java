@@ -1,4 +1,4 @@
-package de.burnthelemon.ggnadditons.listener;
+package de.burnthelemon.ggnadditons.features;
 
 import de.burnthelemon.ggnadditons.Main;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,11 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPortalEvent;
 
-public class EndPortal implements Listener {
+public class PortalTeleportRelocate implements Listener {
    FileConfiguration config = Main.getPlugin().getDefaultConfig().getCfg();
    String prefix;
 
-   public EndPortal() {
+   public PortalTeleportRelocate() {
       this.prefix = this.config.get("plugin.prefix").toString();
    }
 

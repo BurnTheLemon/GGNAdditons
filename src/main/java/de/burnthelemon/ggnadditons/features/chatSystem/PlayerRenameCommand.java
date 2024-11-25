@@ -1,6 +1,7 @@
-package de.burnthelemon.ggnadditons.commands;
+package de.burnthelemon.ggnadditons.features.chatSystem;
 
-import de.burnthelemon.ggnadditons.util.DatabaseManager;
+import de.burnthelemon.ggnadditons.hooks.database.DatabaseHandler;
+import de.burnthelemon.ggnadditons.hooks.database.PlayerDataManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -9,11 +10,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Rename implements CommandExecutor {
-    private final DatabaseManager databaseManager;
+public class PlayerRenameCommand implements CommandExecutor {
+    private final PlayerDataManager playerDataManager;
 
-    public Rename() {
-        this.databaseManager = new DatabaseManager(); // Instantiate DatabaseManager here
+    public PlayerRenameCommand() {
+        this.playerDataManager = new PlayerDataManager(new DatabaseHandler()); // Instantiate DatabaseManager here
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Rename implements CommandExecutor {
 
             if (targetPlayer != null) {
                 String targetUUID = targetPlayer.getUniqueId().toString();
-                databaseManager.deletePlayerName(targetUUID); // Delete the name from the database
+                playerDataManager.deletePlayerName(targetUUID); // Delete the name from the database
                 targetPlayer.displayName(targetPlayer.name());
                 targetPlayer.sendMessage("Your custom username has been deleted.");
                 sender.sendMessage("Deleted custom username for " + targetUsername);
@@ -65,7 +66,7 @@ public class Rename implements CommandExecutor {
         String playerUUID = player.getUniqueId().toString();
 
         // Store the new name in the database
-        databaseManager.updatePlayerName(playerUUID, newName);
+        playerDataManager.updatePlayerName(playerUUID, newName);
 
         // Use MiniMessage to format the new name
         Component displayName = MiniMessage.miniMessage().deserialize(newName);

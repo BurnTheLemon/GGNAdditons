@@ -1,5 +1,5 @@
 name: GGNAdditons
-version: '2.5'
+version: '2.6'
 main: de.burnthelemon.ggnadditons.Main
 api-version: '1.21'
 depend: [LuckPerms, DiscordSRV]
@@ -50,4 +50,6 @@ commands:
   ping:
       description: ""
   sound:
+    description: ""
+  chatmode:
     description: ""

@@ -1,4 +1,4 @@
-package de.burnthelemon.ggnadditons.config;
+package de.burnthelemon.ggnadditons.features.badgeSystem;
 
 import de.burnthelemon.ggnadditons.Main;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 @CMDPermission("ggn.admin")
 @CommandName("admin")
 @CommandSource(player = true, console = false, commandBlock = false)
-public class Admin {
+public class DefinePropertiesCommand {
 
     FileConfiguration config = Main.getPlugin().getDefaultConfig().getCfg();
 

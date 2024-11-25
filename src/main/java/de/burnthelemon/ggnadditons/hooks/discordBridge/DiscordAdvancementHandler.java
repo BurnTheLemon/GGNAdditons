@@ -1,6 +1,5 @@
-package de.burnthelemon.ggnadditons.listener;
+package de.burnthelemon.ggnadditons.hooks.discordBridge;
 
-import de.burnthelemon.ggnadditons.util.DiscordManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.NamespacedKey;

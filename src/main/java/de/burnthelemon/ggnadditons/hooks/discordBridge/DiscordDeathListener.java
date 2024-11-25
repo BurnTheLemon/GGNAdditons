@@ -1,6 +1,5 @@
-package de.burnthelemon.ggnadditons.listener;
+package de.burnthelemon.ggnadditons.hooks.discordBridge;
 
-import de.burnthelemon.ggnadditons.util.DiscordManager;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,7 +9,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import java.awt.*;
 import java.util.Objects;
 
-public class DeathListener implements Listener {
+public class DiscordDeathListener implements Listener {
     DiscordManager discordManager = DiscordManager.getInstance();;
 
     @EventHandler

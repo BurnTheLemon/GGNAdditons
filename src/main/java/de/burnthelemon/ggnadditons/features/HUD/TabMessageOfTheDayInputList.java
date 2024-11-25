@@ -1,8 +1,8 @@
-package de.burnthelemon.ggnadditons.util;
+package de.burnthelemon.ggnadditons.features.HUD;
 
 import java.util.*;
 
-public class TabMODT {
+public class TabMessageOfTheDayInputList {
 
     public static final List<String> customMOTD = new ArrayList<>(Arrays.asList(
             "Welcome to the Blocky Universe!",

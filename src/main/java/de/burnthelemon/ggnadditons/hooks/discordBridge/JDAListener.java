@@ -1,4 +1,4 @@
-package de.burnthelemon.ggnadditons.listener;
+package de.burnthelemon.ggnadditons.hooks.discordBridge;
 
 import de.burnthelemon.ggnadditons.Main;
 import github.scarsz.discordsrv.dependencies.jda.api.events.guild.GuildUnavailableEvent;

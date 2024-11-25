@@ -1,4 +1,4 @@
-package de.burnthelemon.ggnadditons.commands;
+package de.burnthelemon.ggnadditons.features.chatSystem;
 
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
@@ -13,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SoundCommand implements CommandExecutor {
+public class PlaySoundCommand implements CommandExecutor {
 
     // Define a map of sound names to Sound enums
     private final Map<String, net.kyori.adventure.sound.Sound> sounds = new HashMap<>();
 
     // Constructor to initialize the sound map
-    public SoundCommand() {
+    public PlaySoundCommand() {
         // Register predefined sounds
 
         sounds.put("vineboom", net.kyori.adventure.sound.Sound.sound(Key.key("minecraft", "vineboom"), net.kyori.adventure.sound.Sound.Source.PLAYER, 0.25f, 1f)); // Example sound

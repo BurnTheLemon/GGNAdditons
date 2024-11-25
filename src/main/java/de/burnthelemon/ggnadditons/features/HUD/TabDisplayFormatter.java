@@ -1,15 +1,9 @@
-package de.burnthelemon.ggnadditons.listener;
+package de.burnthelemon.ggnadditons.features.HUD;
 
 import de.burnthelemon.ggnadditons.Main;
 import de.burnthelemon.ggnadditons.util.CustomFormattingTags;
-import de.burnthelemon.ggnadditons.util.TabMODT;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
-import net.kyori.adventure.util.HSVLike;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -21,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashMap;
 import java.util.Random;
 
-public class HUDCosmetics implements Listener {
+public class TabDisplayFormatter implements Listener {
 
     HashMap<Player,Integer> playerHudNumber = new HashMap<>();
 
@@ -45,7 +39,7 @@ public class HUDCosmetics implements Listener {
 
         //calculation for storing a semi-persistent value
         Random random = new Random();
-        int randomMODTNumber = random.nextInt(TabMODT.customMOTD.size());
+        int randomMODTNumber = random.nextInt(TabMessageOfTheDayInputList.customMOTD.size());
         playerHudNumber.put(player,randomMODTNumber);
 
         String color1 = generateRandomHexColor();
@@ -54,7 +48,7 @@ public class HUDCosmetics implements Listener {
         //Set footer
         player.sendPlayerListFooter(MiniMessage.miniMessage().deserialize(
         "<gradient:" + color1 + ":" + color2 + ">" +
-                TabMODT.customMOTD.get(randomMODTNumber)
+                TabMessageOfTheDayInputList.customMOTD.get(randomMODTNumber)
                         .replaceAll("%p","<white>" + PlainTextComponentSerializer.plainText().serialize(player.displayName()) + "</white>")
                         .replaceAll("%st_deaths","<white> " + player.getStatistic(Statistic.DEATHS) + " </white>")
                         .replaceAll("%st_pkills","<white> " + player.getStatistic(Statistic.PLAYER_KILLS) + " </white>")
@@ -81,12 +75,12 @@ public class HUDCosmetics implements Listener {
     }
 
     public static void startPingScheduler() {
-        Bukkit.getOnlinePlayers().forEach(HUDCosmetics::setPlayerPingInHud);
+        Bukkit.getOnlinePlayers().forEach(TabDisplayFormatter::setPlayerPingInHud);
         new BukkitRunnable() {
             @Override
             public void run() {
                 // Code to run every 5 seconds
-                Bukkit.getOnlinePlayers().forEach(HUDCosmetics::setPlayerPingInHud);
+                Bukkit.getOnlinePlayers().forEach(TabDisplayFormatter::setPlayerPingInHud);
             }
         }.runTaskTimer(Main.getPlugin(), 0L, 60L); // 100 ticks = 5 seconds
     }

@@ -1,8 +1,7 @@
-package de.burnthelemon.ggnadditons.util;
+package de.burnthelemon.ggnadditons.hooks.discordBridge;
 
 import de.burnthelemon.ggnadditons.Main;
-import de.burnthelemon.ggnadditons.listener.Chat;
-import de.burnthelemon.ggnadditons.listener.JDAListener;
+import de.burnthelemon.ggnadditons.features.chatSystem.ChatExecutor;
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.api.Subscribe;
 import github.scarsz.discordsrv.api.events.DiscordGuildMessageReceivedEvent;
@@ -10,11 +9,8 @@ import github.scarsz.discordsrv.api.events.DiscordReadyEvent;
 import github.scarsz.discordsrv.dependencies.jda.api.EmbedBuilder;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import github.scarsz.discordsrv.util.DiscordUtil;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
@@ -130,6 +126,17 @@ public class DiscordManager {
             String author = event.getAuthor().getName();
             String discordMessage = "<hover:show_text:'Sent from discord by that user'><gradient:#7289da:#1e2124><#7289da>\uE007</#7289da></gradient></hover><reset><white> " + author + "<reset>><gray> " + rawMessage;
             Bukkit.getServer().sendMessage(MiniMessage.miniMessage().deserialize(discordMessage));
+        }
+    }
+
+    public void sendDiscordMessage(Player player,String discordStringMessage) {
+        TextChannel channel = DiscordSRV.getPlugin().getJda().getTextChannelById(discordChannelId);
+        if (channel != null) {
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setColor(Color.CYAN);
+            embed.setAuthor(player.getName() + " | " + ChatExecutor.getPlayerTeamPrefix(player).replaceAll("&[0-9a-fA-Fk-oK-OrR]", ""), null, "https://minotar.net/avatar/" + player.getName() + "/40.png");
+            embed.setDescription(discordStringMessage);
+            channel.sendMessageEmbeds(embed.build()).queue();
         }
     }
 
