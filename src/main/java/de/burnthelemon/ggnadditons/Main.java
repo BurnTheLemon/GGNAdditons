@@ -5,12 +5,12 @@ import java.util.logging.Level;
 import de.burnthelemon.ggnadditons.commands.*;
 import de.burnthelemon.ggnadditons.commands.commandhandler.CommandManager;
 import de.burnthelemon.ggnadditons.features.HUD.TabDisplayFormatter;
+import de.burnthelemon.ggnadditons.features.HUD.__archive__.renderName.PlayerRenameCommand;
 import de.burnthelemon.ggnadditons.features.JoinQuitListener;
 import de.burnthelemon.ggnadditons.features.badgeSystem.BadgeConfig;
 import de.burnthelemon.ggnadditons.features.chatSystem.ChatExecutor;
 import de.burnthelemon.ggnadditons.features.chatSystem.ChatModeCommand;
 import de.burnthelemon.ggnadditons.features.chatSystem.PlaySoundCommand;
-import de.burnthelemon.ggnadditons.features.chatSystem.PlayerRenameCommand;
 import de.burnthelemon.ggnadditons.features.secretStuff.SizeStick;
 import de.burnthelemon.ggnadditons.hooks.discordBridge.DiscordAdvancementHandler;
 import de.burnthelemon.ggnadditons.hooks.discordBridge.DiscordDeathListener;
@@ -37,7 +37,6 @@ public final class Main extends JavaPlugin {
       registerCommands();
       registerEvents();
       this.getServer().getLogger().log(Level.INFO, "[GGNAdditons] => PLUGIN OK");
-      TabDisplayFormatter.startPingScheduler();
       this.getServer().getLogger().log(Level.INFO, "[GGNAdditons] => PING SCHEDULER OK");
    }
 
@@ -63,6 +62,7 @@ public final class Main extends JavaPlugin {
       getCommand("badge").setExecutor(new BadgeCommand());
       getCommand("ping").setExecutor(new CheckPingCommand());
       getCommand("sound").setExecutor(new PlaySoundCommand());
+      getCommand("rename").setExecutor(new RenamePlayerCommand());
 
       getCommand("ressourcepackmanager").setExecutor(new RessourcePackManagerCommand());
       getCommand("ressourcepack").setExecutor(new ResourcePackCommand());

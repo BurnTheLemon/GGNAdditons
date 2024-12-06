@@ -31,7 +31,7 @@ public class SizeStick implements Listener {
         } else if (isDebugStick(item, "<debug> Gravity")) {
             double gravity = getScaleFromLore(item);
             if (gravity > -5) {
-                modifyEntityAttribute(player, Attribute.GENERIC_GRAVITY, gravity);
+                modifyEntityAttribute(player, Attribute.GRAVITY, gravity);
             }
         }
     }
@@ -53,7 +53,7 @@ public class SizeStick implements Listener {
                 double gravity = getScaleFromLore(item);
                 if (gravity > 0) {
                     if (!(event.getEntity() instanceof LivingEntity livingEntity)) return;
-                    modifyEntityAttribute(livingEntity, Attribute.GENERIC_GRAVITY, gravity);
+                    modifyEntityAttribute(livingEntity, Attribute.GRAVITY, gravity);
                     event.setCancelled(true);
                 }
             }
@@ -93,7 +93,7 @@ public class SizeStick implements Listener {
     }
 
     private void scaleEntity(LivingEntity entity, double scale) {
-        modifyEntityAttribute(entity, Attribute.GENERIC_SCALE, scale);
+        modifyEntityAttribute(entity, Attribute.SCALE, scale);
     }
 
     private void modifyEntityAttribute(LivingEntity entity, Attribute attribute, double value) {

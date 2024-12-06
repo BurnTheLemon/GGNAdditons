@@ -12,6 +12,8 @@ commands:
     aliases:
       - dice
       - d
+  rename:
+    description: "AA"
   renameitem:
       description: "A"
       aliases:

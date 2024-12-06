@@ -26,15 +26,13 @@ import java.util.stream.Collectors;
 
 public class ChatExecutor implements Listener {
 
-    private final FileConfiguration config;
     private static LuckPerms api;
     private final DirectMessageComponent directMessageComponent = new DirectMessageComponent();
     private final DiscordManager discordManager = DiscordManager.getInstance();
     private final PlayerDataManager playerDataManager = new PlayerDataManager(new DatabaseHandler());
 
     public ChatExecutor() {
-        this.config = Main.getPlugin().getDefaultConfig().getCfg();
-        this.api = LuckPermsProvider.get();
+        api = LuckPermsProvider.get();
 
         // Scheduler to update status every 30 seconds
         new BukkitRunnable() {
@@ -54,7 +52,7 @@ public class ChatExecutor implements Listener {
         e.viewers().add(Bukkit.getConsoleSender());
         e.viewers().addAll(getMessage(player,stringMessage).getValue());
 
-        if(e.viewers().size() == 2 && Arrays.stream(e.viewers().toArray()).toList().getFirst().equals(e.getPlayer()))
+        if(e.viewers().size() == 2 && Arrays.stream(e.viewers().toArray()).toList().contains(e.getPlayer()))
             e.getPlayer().sendMessage(MiniMessage.miniMessage().deserialize("<white><hover:show_text:'Servermessage'><red><b>!</b></red><gray> No one has heard your message.<reset>"));
 
 
@@ -91,11 +89,16 @@ public class ChatExecutor implements Listener {
     }
 
     public String getChannelGroupIcon(Player player) {
+
+        if(playerDataManager.getPlayerChatMode(player.getUniqueId().toString()) == null)
+            playerDataManager.setPlayerChatMode(player.getUniqueId().toString(),"global");
+
         return switch (playerDataManager.getPlayerChatMode(player.getUniqueId().toString())) {
             case "discord" -> "<white><hover:show_text:'Send via Fakechat'><gradient:#7289da:#1e2124><#7289da>\uE007</#7289da></gradient></hover></white><reset>";
             case "local" -> "<white><hover:show_text:'<gray>Local Chat</gray>'>\uE006</hover></white>";
             case "global" -> "<white><hover:show_text:'<green>Global Chat</green>'>\uE005</hover></white>";
-            case null, default -> "<white><hover:show_text:'<green>Global Chat</green>'>\uE005</hover></white>";
+            case null, default ->
+                "<white><hover:show_text:'<red>Cannot find Chat Mode</red>'>ERROR</hover></white>";
         };
 
 

@@ -1,9 +1,7 @@
-package de.burnthelemon.ggnadditons.features.chatSystem;
+package de.burnthelemon.ggnadditons.features.HUD.__archive__.renderName;
 
 import de.burnthelemon.ggnadditons.hooks.database.DatabaseHandler;
 import de.burnthelemon.ggnadditons.hooks.database.PlayerDataManager;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +23,6 @@ public class PlayerRenameCommand implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("delete")) {
-            // Check if the sender is an operator (admin)
             if (!sender.hasPermission("ggn.name.delete")) {
                 sender.sendMessage("You do not have permission to delete usernames.");
                 return true;
@@ -42,7 +39,7 @@ public class PlayerRenameCommand implements CommandExecutor {
             if (targetPlayer != null) {
                 String targetUUID = targetPlayer.getUniqueId().toString();
                 playerDataManager.deletePlayerName(targetUUID); // Delete the name from the database
-                targetPlayer.displayName(targetPlayer.name());
+                targetPlayer.displayName(targetPlayer.name()); // Reset to default name
                 targetPlayer.sendMessage("Your custom username has been deleted.");
                 sender.sendMessage("Deleted custom username for " + targetUsername);
             } else {
@@ -51,7 +48,6 @@ public class PlayerRenameCommand implements CommandExecutor {
             return true;
         }
 
-        // Handle the rename functionality
         if (!(sender instanceof Player player)) {
             sender.sendMessage("This command can only be used by players.");
             return true;
@@ -68,11 +64,8 @@ public class PlayerRenameCommand implements CommandExecutor {
         // Store the new name in the database
         playerDataManager.updatePlayerName(playerUUID, newName);
 
-        // Use MiniMessage to format the new name
-        Component displayName = MiniMessage.miniMessage().deserialize(newName);
-        player.displayName(displayName);
-
-        player.sendMessage("Your name has been changed to " + MiniMessage.miniMessage().stripTags(MiniMessage.miniMessage().serialize(player.displayName())) );
+        // Apply the name pattern
+        player.sendMessage("Your name has been changed to " + newName);
         return true;
     }
 }
