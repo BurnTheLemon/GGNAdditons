@@ -58,7 +58,6 @@ public final class Main extends JavaPlugin {
       getCommand("msg").setExecutor(new DirectMessageCommand());
       getCommand("roll").setExecutor(new DiceCommand());
       getCommand("modifyitem").setExecutor(new ModifyItemCommand());
-      getCommand("name").setExecutor(new PlayerRenameCommand());
       getCommand("badge").setExecutor(new BadgeCommand());
       getCommand("ping").setExecutor(new CheckPingCommand());
       getCommand("sound").setExecutor(new PlaySoundCommand());

@@ -15,8 +15,8 @@ public class TestCommand {
     private void onDefaultCommandExecution(Player p) {
         // This should link to the permission above the class "test.raw"
         // This should link to the commandname /test with no added arguments
-        // This should link to the class CommandSource, players and the console are allowed to execute this
-        p.sendMessage("Default command executed!");
+        // This should link to the class CommandSource, players and the consoe are allowed to execute this
+        p.sendMessage("Default command executed!" + p.displayName());
     }
 
     @SubCMD("lols")

@@ -12,12 +12,6 @@ commands:
     aliases:
       - dice
       - d
-  rename:
-    description: "AA"
-  renameitem:
-      description: "A"
-      aliases:
-        - rn
   modifyitem:
       description: ""
       aliases:
@@ -27,6 +21,7 @@ commands:
       aliases:
         - nnick
         - nick
+        - rename
   admin:
       description: "Admin command"
   ressourcepack:
