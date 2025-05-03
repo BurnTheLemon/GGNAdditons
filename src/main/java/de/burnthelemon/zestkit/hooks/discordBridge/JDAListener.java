@@ -1,6 +1,6 @@
-package de.burnthelemon.ggnadditons.hooks.discordBridge;
+package de.burnthelemon.zestkit.hooks.discordBridge;
 
-import de.burnthelemon.ggnadditons.Main;
+import de.burnthelemon.zestkit.Main;
 import github.scarsz.discordsrv.dependencies.jda.api.events.guild.GuildUnavailableEvent;
 import github.scarsz.discordsrv.dependencies.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;

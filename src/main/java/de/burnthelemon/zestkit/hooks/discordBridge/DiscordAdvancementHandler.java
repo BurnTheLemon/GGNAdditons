@@ -1,4 +1,4 @@
-package de.burnthelemon.ggnadditons.hooks.discordBridge;
+package de.burnthelemon.zestkit.hooks.discordBridge;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;

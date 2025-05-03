@@ -1,6 +1,6 @@
-package de.burnthelemon.ggnadditons.config;
+package de.burnthelemon.zestkit.config;
 
-import de.burnthelemon.ggnadditons.Main;
+import de.burnthelemon.zestkit.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -30,7 +30,7 @@ public class DefaultConfig {
 
    private void addDefaults() {
       this.cfg.options().copyDefaults(true);
-      this.cfg.addDefault("plugin.prefix", "<white>[<gradient:blue:red:green>GGN<white>] <white>");
+      this.cfg.addDefault("plugin.test", "test");
    }
 
    public void save() {

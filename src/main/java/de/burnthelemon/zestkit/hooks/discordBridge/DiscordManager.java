@@ -1,7 +1,7 @@
-package de.burnthelemon.ggnadditons.hooks.discordBridge;
+package de.burnthelemon.zestkit.hooks.discordBridge;
 
-import de.burnthelemon.ggnadditons.Main;
-import de.burnthelemon.ggnadditons.features.chatSystem.ChatExecutor;
+import de.burnthelemon.zestkit.Main;
+import de.burnthelemon.zestkit.features.chatSystem.ChatExecutor;
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.api.Subscribe;
 import github.scarsz.discordsrv.api.events.DiscordGuildMessageReceivedEvent;

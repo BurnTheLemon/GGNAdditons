@@ -1,52 +1,7 @@
 name: ZestKit
 version: '2.6'
-main: de.burnthelemon.ggnadditons.Main
+main: de.burnthelemon.zestkit.Main
 api-version: '1.21'
 depend: [LuckPerms, DiscordSRV]
 loadbefore: [Essentials]
 commands:
-  test:
-    description: "Test"
-  roll:
-    description: "A"
-    aliases:
-      - dice
-      - d
-  modifyitem:
-      description: ""
-      aliases:
-        - mi
-  name:
-      description: "moo"
-      aliases:
-        - nnick
-        - nick
-        - rename
-  admin:
-      description: "Admin command"
-  ressourcepack:
-      description: "A"
-      aliases:
-        - rp
-        - resourcepack
-  ressourcepackmanager:
-      description: "B"
-      aliases:
-        - rpm
-  msg:
-      description: ""
-      aliases:
-        - message
-        - w
-        - tell
-        - whisper
-  badge:
-      description: ""
-      aliases:
-        - bd
-  ping:
-      description: ""
-  sound:
-    description: ""
-  chatmode:
-    description: ""
