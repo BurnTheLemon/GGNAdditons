@@ -5,3 +5,7 @@ api-version: '1.21'
 depend: [LuckPerms, DiscordSRV]
 loadbefore: [Essentials]
 commands:
+  rename:
+    aliases:
+      - rn
+      - name

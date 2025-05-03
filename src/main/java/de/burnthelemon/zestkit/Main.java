@@ -2,9 +2,10 @@ package de.burnthelemon.zestkit;
 
 import java.util.Arrays;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import de.burnthelemon.zestkit.config.DefaultConfig;
+import de.burnthelemon.zestkit.features.nicknames.NickNameHandler;
+import de.burnthelemon.zestkit.features.nicknames.RenamePlayerCommand;
 import de.burnthelemon.zestkit.hooks.discordBridge.DiscordManager;
 import de.burnthelemon.zestkit.util.LoggerUtility;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,7 +40,9 @@ public final class Main extends JavaPlugin {
 
    public void registerCommands() {
       try {
-         //getCommand("msg").setExecutor(new DirectMessageCommand());
+         getCommand("rename").setExecutor(new RenamePlayerCommand());
+
+
       } catch(Exception ex) {
          LoggerUtility.log(Level.SEVERE, "Fatal Error one of the following commands have not been initialized." + Arrays.toString(ex.getStackTrace()));
          return;
@@ -51,7 +54,7 @@ public final class Main extends JavaPlugin {
 
    public void registerEvents() {
       try {
-         //getServer().getPluginManager().registerEvents(new JoinQuitListener(),this);
+         getServer().getPluginManager().registerEvents(new NickNameHandler(),this);
       } catch(Exception ex) {
          LoggerUtility.log(Level.SEVERE, "Fatal Error one of the following events have not been initialized." + Arrays.toString(ex.getStackTrace()));
          return;
