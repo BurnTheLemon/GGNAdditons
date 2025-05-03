@@ -29,7 +29,7 @@ public class DiscordManager {
     public static boolean isDiscordReady = false;
     public static String discordChannelId = "1306869962622763069";
 
-    private Instant serverStartTime;
+    private final Instant serverStartTime;
     private Instant lastUpdateTime;
     public final Set<UUID> uniquePlayers = new HashSet<>();
 

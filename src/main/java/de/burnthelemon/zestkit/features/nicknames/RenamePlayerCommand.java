@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+import static de.burnthelemon.zestkit.Main.PLUGINPREFIX;
+
 public class RenamePlayerCommand implements CommandExecutor {
     private final PlayerDatabase playerDataManager = new PlayerDatabase();
 
@@ -24,7 +26,7 @@ public class RenamePlayerCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("delete")) {
             // Check if the sender is an operator (admin)
-            if (!sender.hasPermission("ggn.name.delete")) {
+            if (!sender.hasPermission(Permissions.DELETE.getNode())) {
                 sender.sendMessage("You do not have permission to delete usernames.");
                 return true;
             }
@@ -39,7 +41,7 @@ public class RenamePlayerCommand implements CommandExecutor {
 
             if (targetPlayer != null) {
                 UUID targetUUID = targetPlayer.getUniqueId();
-                playerDataManager.deletePlayerNickName(targetUUID); // Delete the name from the database
+                playerDataManager.deletePlayerNickname(targetUUID); // Delete the name from the database
                 targetPlayer.displayName(targetPlayer.name());
                 targetPlayer.sendMessage("Your custom username has been deleted.");
                 sender.sendMessage("Deleted custom username for " + targetUsername);
@@ -64,7 +66,7 @@ public class RenamePlayerCommand implements CommandExecutor {
         UUID playerUUID = player.getUniqueId();
 
         // Store the new name in the database
-        playerDataManager.addPlayerNickName(playerUUID, newName);
+        playerDataManager.setPlayerNickname(playerUUID, newName);
 
         // Use MiniMessage to format the new name
         Component displayName = MiniMessage.miniMessage().deserialize(newName);
@@ -72,5 +74,20 @@ public class RenamePlayerCommand implements CommandExecutor {
 
         player.sendMessage("Your name has been changed to " + MiniMessage.miniMessage().stripTags(MiniMessage.miniMessage().serialize(player.displayName())) );
         return true;
+    }
+
+
+    private enum Permissions {
+        DELETE(PLUGINPREFIX + ".delete");
+
+        private final String node;
+
+        Permissions(String node) {
+            this.node = node;
+        }
+
+        public String getNode() {
+            return node;
+        }
     }
 }
