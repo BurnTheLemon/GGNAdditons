@@ -1,7 +1,6 @@
 package de.burnthelemon.zestkit.hooks.discordBridge;
 
 import de.burnthelemon.zestkit.Main;
-import de.burnthelemon.zestkit.features.chatSystem.ChatExecutor;
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.api.Subscribe;
 import github.scarsz.discordsrv.api.events.DiscordGuildMessageReceivedEvent;
@@ -134,7 +133,7 @@ public class DiscordManager {
         if (channel != null) {
             EmbedBuilder embed = new EmbedBuilder();
             embed.setColor(Color.CYAN);
-            embed.setAuthor(player.getName() + " | " + ChatExecutor.getPlayerTeamPrefix(player).replaceAll("&[0-9a-fA-Fk-oK-OrR]", ""), null, "https://minotar.net/avatar/" + player.getName() + "/40.png");
+            //embed.setAuthor(player.getName() + " | " + ChatExecutor.getPlayerTeamPrefix(player).replaceAll("&[0-9a-fA-Fk-oK-OrR]", ""), null, "https://minotar.net/avatar/" + player.getName() + "/40.png");
             embed.setDescription(discordStringMessage);
             channel.sendMessageEmbeds(embed.build()).queue();
         }
