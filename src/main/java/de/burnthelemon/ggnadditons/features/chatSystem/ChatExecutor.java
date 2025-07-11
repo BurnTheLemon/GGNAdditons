@@ -97,7 +97,7 @@ public class ChatExecutor implements Listener {
             case "discord" -> "<white><hover:show_text:'Send via Fakechat'><gradient:#7289da:#1e2124><#7289da>\uE007</#7289da></gradient></hover></white><reset>";
             case "local" -> "<white><hover:show_text:'<gray>Local Chat</gray>'>\uE006</hover></white>";
             case "global" -> "<white><hover:show_text:'<green>Global Chat</green>'>\uE005</hover></white>";
-            case null, default ->
+            case null, default -> 
                 "<white><hover:show_text:'<red>Cannot find Chat Mode</red>'>ERROR</hover></white>";
         };
 

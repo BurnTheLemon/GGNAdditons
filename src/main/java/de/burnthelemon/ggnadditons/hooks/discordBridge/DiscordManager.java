@@ -28,7 +28,7 @@ import java.util.logging.Level;
 public class DiscordManager {
 
     public static boolean isDiscordReady = false;
-    public static String discordChannelId = "1306869962622763069";
+    public static String discordChannelId = "1242988275317211156";
 
     private Instant serverStartTime;
     private Instant lastUpdateTime;

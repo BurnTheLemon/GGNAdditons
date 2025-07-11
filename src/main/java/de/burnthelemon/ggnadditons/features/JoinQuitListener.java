@@ -46,6 +46,11 @@ public class JoinQuitListener implements Listener {
         UUID playerUUID = player.getUniqueId();
         long currentTime = System.currentTimeMillis();
 
+        if(playerDataManager.getPlayerChatMode(e.getPlayer().getUniqueId().toString()) == null) {
+            e.getPlayer().sendMessage("<white>Your chatmode has been set to GLOBAL");
+            playerDataManager.setPlayerChatMode(player.getUniqueId().toString(),"global");
+        }
+
         if (player.hasPlayedBefore()) {
             // Check if the player is on cooldown
             if (cooldowns.containsKey(playerUUID)) {
